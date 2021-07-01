@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>PolyWizz</title>
+  <!-- Tell the browser to be responsive to screen width -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="../static/plugins/fontawesome-free/css/all.min.css">
+  <!-- Ionicons -->
+  <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+  <!-- Theme style -->
+  <link rel="stylesheet" href="../static/css/adminlte.min.css">
+  <!-- summernote -->
+  <link rel="stylesheet" href="../static/plugins/summernote/summernote-bs4.css">
+  <!-- Google Font: Source Sans Pro -->
+  <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+
+  <style>
+    .note-editor.note-frame .note-editing-area {
+    min-height: 350px;
+}
+.opacity{
+  opacity:0;
+  position: absolute;
+  top:0;
+  height:400px;
+  width: 100%;
+  cursor: pointer;
+}
+.opacity-div{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  position: relative;
+}
+.pad{
+  height: 400px;
+  width:400px;
+  margin: auto;
+}
+.bigicon{
+  font-size: 60px;
+  background-color: transparent;
+ margin-bottom: 0.2em;
+ color:#007bff;
+}
+.file-upload{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  animation: imganim 1s infinite linear both;
+  margin-top: 4em;
+  text-align: center;
+  position: relative;
+  z-index: 1;
+width:300px;
+
+}
+.file-upload a{
+  background-color: transparent;
+  border:1px solid #007bff;
+  color:#007bff;
+}
+
+@keyframes imganim {
+from {height: 50px;}
+to {height: 55px;} 
+}
+.success{
+  font-size: 20px;
+  color:#fff;
+  background-color: #007bff;
+  border-radius: 50%;
+  padding:1rem;
+  margin-bottom: 10px;
+}
+
+
+  </style>
+</head>
+<body class="hold-transition sidebar-mini">
+<div class="wrapper">
+   <!-- Navbar -->
+   <nav class="main-header navbar navbar-expand navbar-white navbar-light">
+    <!-- Left navbar links -->
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <a class="nav-link" data-widget="pushmenu" href="#"
+          ><i class="fas fa-bars"></i
+        ></a>
+      </li>
+      <li class="nav-item d-none d-sm-inline-block">
+        <a href="./Dashboard.html" class="nav-link">Home</a>
+      </li>
+      
+    </ul>
+
+    <!-- SEARCH FORM -->
+    
+
+   
+   
+  </nav>
+  <!-- /.navbar -->
+
+  <!-- Main Sidebar Container -->
+  <aside class="main-sidebar sidebar-dark-primary elevation-4">
+        
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+      <!-- Sidebar user panel (optional) -->
+      <div class="user-panel mt-3 pb-3 mb-3 d-flex ml-2">
+        <div class="info">
+          <strong><a href="#" class="d-block">Firstname Lastname</a></strong>
+        </div>
+      </div>
+
+      <!-- Sidebar Menu -->
+      <nav class="mt-2">
+        <ul
+          class="nav nav-pills nav-sidebar flex-column"
+          data-widget="treeview"
+          role="menu"
+          data-accordion="false"
+        >
+        
+
+          <li class="nav-item pt-3">
+            <a href="{{ url_for('main.getFile') }}" class="nav-link">
+              <i class="fa fa-plus nav-icon"></i>
+              <p>Add New Document</p>
+            </a>
+          </li>
+
+          <li class="nav-item pt-3">
+            <a href="{{ url_for('main.uploadForClient') }}" class="nav-link">
+              <i class="fa fa-plus nav-icon"></i>
+              <p>Upload Created Doc(Agent)</p>
+            </a>
+          </li>
+
+          <!-- <li class="nav-item pt-3">
+            <a href="create.html" class="nav-link">
+              <i class="fa fa-file nav-icon"></i>
+              <p>Create New PDF Form</p>
+            </a>
+          </li> -->
+
+          <li class="nav-item has-treeview pt-3">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fa fa-history"></i>
+              <p>
+                History
+                <i class="fas fa-angle-left right"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{ url_for('main.processHistory') }}" class="nav-link">
+                  <i class="fa fa-tasks nav-icon"></i>
+                  <p>In Process</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{ url_for('main.allHistory') }}" class="nav-link">
+                  <i class="fa fa-history nav-icon"></i>
+                  <p>All History</p>
+                </a>
+              </li>
+
+             
+            </ul>
+          </li>
+
+          <li class="nav-item pt-3">
+            <a href="logout.html" class="nav-link">
+              <i class="fa fa-power-off nav-icon"></i>
+              <p>Logout</p>
+            </a>
+          </li>
+        </ul>
+      </nav>
+      <!-- /.sidebar-menu -->
+    </div>
+    <!-- /.sidebar -->
+  </aside>
+
+
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1>Upload Agent Created Form</h1>
+          </div>
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="#">Home</a></li>
+              <li class="breadcrumb-item active">Add Document for Customers</li>
+            </ol>
+          </div>
+        </div>
+      </div><!-- /.container-fluid -->
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="card card-outline card-info">
+            <div class="card-header">
+              <h3 class="card-title">
+                Add New Document
+               
+              </h3>
+              <!-- tools box -->
+            
+              <!-- /. tools -->
+            </div>
+            <!-- /.card-header -->
+            <form action="" method="POST" enctype="multipart/form-data">
+              <div class="card-body pad">
+                <div class="mb-3 opacity-div">
+                  <i class="fas fa-file bigicon"></i>
+                  <p class='text-center'>Drag 'n' drop a file here,
+                    <br>or <strong> <span style="color:#007bff;" >Browse files</span></strong></p>
+  
+                    <input
+                    class="form-control form-control-navbar opacity"
+                    type="file"
+                    id="input"
+                    name="file"
+                    placeholder="Search"
+                    aria-label="Search"
+                  />
+                  <div class="file-upload" id="file-upload-filename">
+                   
+                  </div>
+                </div>
+               
+  
+               
+              </div>
+            </form>
+            
+           
+          </div>
+        </div>
+        <!-- /.col-->
+      </div>
+      <!-- ./row -->
+    </section>
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
+  
+</div>
+<!-- ./wrapper -->
+
+<!-- jQuery -->
+<script src="../static/js/jquery-3.3.1.min.js"></script>
+<!-- Bootstrap 4 -->
+<script src="../static/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<!-- AdminLTE App -->
+<script src="../static/js/adminlte.min.js"></script>
+<!-- AdminLTE for demo purposes -->
+<script src="../static/js/demo.js"></script>
+<!-- Summernote -->
+<script src="../static/plugins/summernote/summernote-bs4.min.js"></script>
+<script>
+  $(function () {
+    // Summernote
+    $('.textarea').summernote() 
+  })
+
+  const inputEl=document.getElementById('input');
+ const infoArea = document.getElementById( 'file-upload-filename' );
+ 
+  inputEl.addEventListener("change", function(event) {
+    const input = event.srcElement;
+    const fileName = input.files[0].name;
+    infoArea.innerHTML = `<i class="fa fa-check success"></i>   ${fileName} <input type="submit" class ="btn b-0 rounded-0 mt-2" value="Continue" />`;
+});
+
+</script>
+
+</body>
+</html>

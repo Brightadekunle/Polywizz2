@@ -14,7 +14,7 @@
   <!-- DataTables -->
   <link rel="stylesheet" href="../static/plugins/datatables-bs4/css/dataTables.bootstrap4.css">
   <!-- Theme style -->
-  <link rel="stylesheet" href="Assets/css/adminlte.min.css">
+  <link rel="stylesheet" href="../static/css/adminlte.css">
   <!-- Google Font: Source Sans Pro -->
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
 </head>
@@ -91,37 +91,12 @@
           </li>
 
           <li class="nav-item pt-3">
-            <a href="create-new.html" class="nav-link">
-              <i class="fa fa-file nav-icon"></i>
-              <p>Create New Document</p>
+            <a href="{{ url_for('main.uploadForClient') }}" class="nav-link">
+              <i class="fa fa-plus nav-icon"></i>
+              <p>Upload Created Doc(Agent)</p>
             </a>
           </li>
-
-          <li class="nav-item pt-3">
-            <a href="{{ url_for('main.viewStatus') }}" class="nav-link">
-              <i class="fa fa-street-view nav-icon"></i>
-              <p>View Status</p>
-            </a>
-          </li>
-
-          <li class="nav-item pt-3">
-            <a href="{{ url_for('main.selectDocument') }}" class="nav-link">
-              <i class="fa fa-check nav-icon"></i>
-              <p>Select Existing Document</p>
-            </a>
-          </li>
-
-          <li class="nav-item pt-3">
-            <a href="add-signature.html" class="nav-link">
-              <i class="fas fa-file-signature nav-icon"></i>
-              <p>Add Signature</p>
-            </a>
-          </li>
-
         
-
-        
-
           <li class="nav-item has-treeview pt-3">
             <a href="#" class="nav-link">
               <i class="nav-icon fa fa-history"></i>

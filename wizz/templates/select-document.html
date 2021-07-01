@@ -92,6 +92,13 @@
                   <p>Add New Document</p>
                 </a>
               </li>
+
+              <li class="nav-item pt-3">
+                <a href="{{ url_for('main.uploadForClient') }}" class="nav-link">
+                  <i class="fa fa-plus nav-icon"></i>
+                  <p>Upload Created Doc(Agent)</p>
+                </a>
+              </li>
     
               <!-- <li class="nav-item pt-3">
                 <a href="create.html" class="nav-link">
@@ -99,24 +106,6 @@
                   <p>Create New PDF Form</p>
                 </a>
               </li> -->
-    
-              <li class="nav-item pt-3">
-                <a href="{{ url_for('main.viewStatus') }}" class="nav-link">
-                  <i class="fa fa-street-view nav-icon"></i>
-                  <p>View Status</p>
-                </a>
-              </li>
-    
-              <li class="nav-item pt-3">
-                <a href="{{ url_for('main.selectDocument') }}" class="nav-link">
-                  <i class="fa fa-check nav-icon"></i>
-                  <p>Select Document</p>
-                </a>
-              </li>
-    
-              
-            
-    
             
     
               <li class="nav-item has-treeview pt-3">
@@ -282,7 +271,7 @@
                           <a href="http://"><i class="fa fa-trash"></i></a>
                         </td>
                         <td>
-                          <a href="mailto:"><i class="fa fa-envelope"></i></a>
+                          <a href="mailto:brightaverix@gmail.com?subject=HI&body={{link}}"><i class="fa fa-envelope"></i></a>
                         </td>
                         <td>
                           <a href="sms:"><i class="fa fa-phone"></i></a>

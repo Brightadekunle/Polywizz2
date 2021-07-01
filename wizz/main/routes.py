@@ -1,12 +1,11 @@
 import os
-from io import StringIO
 import secrets
 from . import main
-from ..models import Document
+from ..models import Document, NewDocument
+from ..email import send_mail
 from wizz import db
 from flask import json, render_template, redirect, request, current_app, url_for, abort, send_from_directory, flash, jsonify
 from werkzeug.utils import secure_filename
-
 
 
 @main.route('/', methods=['GET', 'POST'])
@@ -17,13 +16,12 @@ def index():
 def dashboard():
     return render_template("Dashboard.html")
 
-@main.route('/view-status', methods=['GET', 'POST'])
-def viewStatus():
-    return render_template("view-status.html")
-
-@main.route('/select-document', methods=['GET', 'POST'])
-def selectDocument():
-    return render_template("select-document.html")
+@main.route('/select-document/<pdf>', methods=['GET', 'POST'])
+def selectDocument(pdf):
+    document = NewDocument.query.filter_by(name=pdf).first()
+    link = "http://localhost:5000/clientCreate/" + document.name
+    print(link)
+    return render_template("select-document.html", link=link, pdf=document.name, document=document)
 
 @main.route('/process-history', methods=['GET', 'POST'])
 def processHistory():
@@ -31,6 +29,7 @@ def processHistory():
 
 @main.route('/all-history', methods=['GET', 'POST'])
 def allHistory():
+    
     return render_template("all-history.html")
 
 
@@ -38,6 +37,11 @@ def allHistory():
 def create(image):
     imagePdf = Document.query.filter_by(image_file=image).first()
     return render_template("create.html", imagePdf=imagePdf.image_file)
+
+@main.route('/clientCreate/<image>', methods=['GET', 'POST'])
+def clientCreate(image):
+    imagePdf = NewDocument.query.filter_by(name=image).first()
+    return render_template("create.html", imagePdf=imagePdf.name)
 
 
 @main.route('/upload', methods=['GET', 'POST'])
@@ -66,32 +70,36 @@ def getFile():
 
 @main.route('/save/<filename>', methods=['GET', 'POST'])
 def download(filename):
+    # information = request.data
+    # print("information -", information, type(information))
     document = Document.query.filter_by(image_file=filename).first()
-    # picture_file = save_picture(filename)
     document.saved_image_file = document.image_file
     db.session.commit()
     print("File saved successfully...............")
     return redirect(request.referrer)
-    # picture_path = os.path.join(
-    #         current_app.root_path, 'static/images')
-    # return send_from_directory(directory=picture_path, filename=filename)
 
 
-@main.route('/send/<filename>', methods=['GET', 'POST'])
-def sendFile(filename):
-    document = Document.query.filter_by(saved_image_file=filename).first()
-    print(document.saved_image_file)
-    return redirect(url_for("main.selectDocument"))
-
+@main.route('/uploadForClient', methods=['GET', 'POST'])
+def uploadForClient():
+    if request.method == "POST":
+        uploaded_file = request.files["file"]
+        print(uploaded_file)
+        filename = secure_filename(uploaded_file.filename)
+        if filename != '':
+            file_ext = os.path.splitext(filename)[1]
+            if file_ext not in current_app.config['UPLOAD_EXTENSIONS']:
+                print("Abort 400")
+                abort(400)
+            picture_file = save_picture(uploaded_file)
+            document = NewDocument(name=picture_file)
+            db.session.add(document)
+            db.session.commit()
+            flash('Your file has been successfully uploaded!', 'success')
+            return redirect(url_for("main.selectDocument", pdf=picture_file))
     
-
-
     
-# @main.route('/save/<filename>', methods=['GET', 'POST'])
-# def download(filename):
-#     picture_path = os.path.join(
-#             current_app.root_path, 'static/images')
-#     return send_from_directory(directory=picture_path, filename=filename)
+    return render_template("fill.html")
+
    
 
 def save_picture(form_picture):
