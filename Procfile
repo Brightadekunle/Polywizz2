@@ -1,1 +1,1 @@
-web: gunicorn wizz:app
+web: gunicorn wizz.app:app
