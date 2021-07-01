@@ -3,6 +3,7 @@ basedir = os.path.abspath(os.path.dirname(__file__))
 
 
 class Config:
+    CSRF_ENABLED = True
     SECRET_KEY = os.environ.get('SECRET_KEY')
     UPLOAD_EXTENSIONS = ['.jpg', '.jpeg', '.png', '.doc', ".pdf"]
     SQLALCHEMY_DATABASE_URI = 'sqlite:///polywizz.db'
@@ -15,23 +16,16 @@ class Config:
     MAIL_PASSWORD = os.environ.get('MAIL_PASSWORD')
     INSTAGRAM_MAIL_SUBJECT_PREFIX = 'From polywizz'
     INSTAGRAM_MAIL_SENDER = 'Polywizz Admin'
+    DEBUG = True
 
     @staticmethod
     def init_app(app):
         pass
 
-
-class DevelopmentConfig(Config):
-    DEBUG = True
-    SQLALCHEMY_DATABASE_URI = os.environ.get('DEV_DATABASE_URL') or \
-        'sqlite:///' + os.path.join(basedir, 'data-dev.sqlite')
+    
 
 
 config = {
-    'development': DevelopmentConfig,
-    'default': DevelopmentConfig
+    # 'development': DevelopmentConfig,
+    'default': Config
 }
-
-
-
-

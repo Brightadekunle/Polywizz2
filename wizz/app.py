@@ -1,4 +1,4 @@
+import os
 from wizz import create_app
-import wizz.config as config
 
-app = create_app(config_file=config)
+app = create_app(os.getenv('FLASK_CONFIG') or 'default')
