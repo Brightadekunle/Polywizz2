@@ -1,1 +1,1 @@
-web: gunicorn wizz.app:app --preload
+web: gunicorn wizz.app:app
