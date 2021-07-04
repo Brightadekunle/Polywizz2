@@ -16,10 +16,19 @@ def create_app():
     app = Flask(__name__)
     # app.config.from_object(Config())
     # config[config_name].init_app(app)
+    POSTGRES = {
+    'user': 'postgres',
+    'pw': 'adekunle',
+    'db': 'polywizz',
+    'host': 'localhost',
+    'port': '5432',
+}
+    # app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://%(user)s:\%(pw)s@%(host)s:%(port)s/%(db)s' % POSTGRES
+    app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:adekunle@localhost:5432/polywizz'
     app.config["CSRF_ENABLED"] = True
     app.config["SECRET_KEY"] = os.environ.get('SECRET_KEY')
     app.config["UPLOAD_EXTENSIONS"] = ['.jpg', '.jpeg', '.png', '.doc', ".pdf"]
-    app.config["SQLALCHEMY_DATABASE_URI"] = 'sqlite:///polywizz.db'
+    # app.config["SQLALCHEMY_DATABASE_URI"] = 'postgresql:///polywizz'
     app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
     app.config["SQLALCHEMY_COMMIT_ON_TEARDOWN"] = True
     app.config["MAIL_SERVER"] = 'smtp.googlemail.com'
