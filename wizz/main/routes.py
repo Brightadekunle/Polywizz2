@@ -2,6 +2,7 @@ import os
 import secrets
 import pythoncom
 from docx2pdf import convert
+from PIL import Image
 from . import main
 from ..models import Document, NewDocument
 from ..email import send_mail
@@ -72,6 +73,25 @@ def getFile():
                 flash('Your file has been successfully uploaded!', 'success')
                 return redirect(url_for("main.create", image=pdf_file_with_ext))
 
+            elif file_ext != ".pdf" and file_ext in current_app.config["PICTURE_EXTENSIONS"]:
+                picture_file = save_picture(uploaded_file)
+                pythoncom.CoInitialize()
+                picture_path = os.path.join(
+                                current_app.root_path, 'static/images', picture_file)
+                image1 = Image.open(picture_path)
+                im1 = image1.convert('RGB')
+                pdf_file_name = picture_file.split(".")[0]
+                pdf_file_with_ext = pdf_file_name + ".pdf"
+                new_picture_path = os.path.join(
+                                current_app.root_path, 'static/images', pdf_file_with_ext)
+                im1.save(new_picture_path)
+                print(pdf_file_with_ext)
+                document = Document(image_file=pdf_file_with_ext, name="Adegoke Bright")
+                db.session.add(document)
+                db.session.commit()
+                print("File uploaded successfully...............")
+                flash('Your file has been successfully uploaded!', 'success')
+                return redirect(url_for("main.create", image=pdf_file_with_ext))
             else:
                 picture_file = save_picture(uploaded_file)
                 document = Document(image_file=picture_file, name="Adegoke Bright")
