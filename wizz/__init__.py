@@ -27,7 +27,9 @@ def create_app():
     # app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:adekunle@localhost:5432/polywizz'
     app.config["CSRF_ENABLED"] = True
     app.config["SECRET_KEY"] = os.environ.get('SECRET_KEY')
-    app.config["UPLOAD_EXTENSIONS"] = ['.jpg', '.jpeg', '.png', '.doc', ".pdf"]
+    app.config["UPLOAD_EXTENSIONS"] = ['.jpg', '.jpeg', '.png', '.doc', '.docx', ".pdf"]
+    app.config["WORD_EXTENSIONS"] = ['.doc', '.docx']
+    app.config["PICTURE_EXTENSIONS"] = ['.jpg', '.jpeg', '.png']
     # app.config["SQLALCHEMY_DATABASE_URI"] = 'postgresql:///polywizz'
     app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
     app.config["SQLALCHEMY_COMMIT_ON_TEARDOWN"] = True

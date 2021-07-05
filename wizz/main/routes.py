@@ -1,5 +1,7 @@
 import os
 import secrets
+import pythoncom
+from docx2pdf import convert
 from . import main
 from ..models import Document, NewDocument
 from ..email import send_mail
@@ -46,24 +48,38 @@ def clientCreate(image):
 
 @main.route('/upload', methods=['GET', 'POST'])
 def getFile():
-    
     if request.method == "POST":
         uploaded_file = request.files["file"]
-        print(uploaded_file)
         filename = secure_filename(uploaded_file.filename)
         if filename != '':
             file_ext = os.path.splitext(filename)[1]
             if file_ext not in current_app.config['UPLOAD_EXTENSIONS']:
                 print("Abort 400")
                 abort(400)
-            picture_file = save_picture(uploaded_file)
-            document = Document(image_file=picture_file, name="Adegoke Bright")
-            db.session.add(document)
-            db.session.commit()
-            print("File uploaded successfully...............")
-            flash('Your file has been successfully uploaded!', 'success')
-            return redirect(url_for("main.create", image=picture_file))
-    
+            if file_ext != ".pdf" and file_ext in current_app.config["WORD_EXTENSIONS"]:
+                picture_file = save_picture(uploaded_file)
+                pythoncom.CoInitialize()
+                picture_path = os.path.join(
+                                current_app.root_path, 'static/images', picture_file)
+                convert(picture_path)
+                pdf_file_name = picture_file.split(".")[0]
+                pdf_file_with_ext = pdf_file_name + ".pdf"
+                print(pdf_file_with_ext)
+                document = Document(image_file=pdf_file_with_ext, name="Adegoke Bright")
+                db.session.add(document)
+                db.session.commit()
+                print("File uploaded successfully...............")
+                flash('Your file has been successfully uploaded!', 'success')
+                return redirect(url_for("main.create", image=pdf_file_with_ext))
+
+            else:
+                picture_file = save_picture(uploaded_file)
+                document = Document(image_file=picture_file, name="Adegoke Bright")
+                db.session.add(document)
+                db.session.commit()
+                print("File uploaded successfully...............")
+                flash('Your file has been successfully uploaded!', 'success')
+                return redirect(url_for("main.create", image=picture_file))
     
     return render_template("add-new.html")
 
