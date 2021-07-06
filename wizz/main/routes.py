@@ -1,6 +1,8 @@
 import os
 import secrets
+import pythoncom
 from docx2pdf import convert
+import convertapi
 from PIL import Image
 from . import main
 from ..models import Document, NewDocument
@@ -9,10 +11,9 @@ from wizz import db
 from flask import json, render_template, redirect, request, current_app, url_for, abort, send_from_directory, flash, jsonify
 from werkzeug.utils import secure_filename
 
-try:
-    import pythoncom
-except Exception as e:
-    pass
+
+convertapi.api_secret = '01FK85WQktz8GYZz'
+
 
 @main.route('/', methods=['GET', 'POST'])
 def index():
@@ -64,21 +65,27 @@ def getFile():
                 picture_file = save_picture(uploaded_file)
                 picture_path = os.path.join(
                                 current_app.root_path, 'static/images', picture_file)
-                try:
-                    pythoncom.CoInitialize()
-                except Exception as e:
-                    raise e
-                convert(picture_path)
+                # try:
+                #     pythoncom.CoInitialize()
+                # except Exception as e:
+                #     raise e
+                # convert(picture_path)
+
+                result = convertapi.convert('pdf', { 'File': picture_path })
+
                 pdf_file_name = picture_file.split(".")[0]
                 pdf_file_with_ext = pdf_file_name + ".pdf"
-                print(pdf_file_with_ext)
+
+                new_picture_path = os.path.join(
+                                current_app.root_path, 'static/images', pdf_file_with_ext)
+                # save to file
+                result.file.save(new_picture_path)
                 document = Document(image_file=pdf_file_with_ext, name="Adegoke Bright")
                 db.session.add(document)
                 db.session.commit()
                 print("File uploaded successfully...............")
                 flash('Your file has been successfully uploaded!', 'success')
                 return redirect(url_for("main.create", image=pdf_file_with_ext))
-
 
             elif file_ext != ".pdf" and file_ext in current_app.config["PICTURE_EXTENSIONS"]:
                 picture_file = save_picture(uploaded_file)
