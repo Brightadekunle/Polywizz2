@@ -1,6 +1,5 @@
 import os
 import secrets
-import pythoncom
 from docx2pdf import convert
 from PIL import Image
 from . import main
@@ -9,6 +8,11 @@ from ..email import send_mail
 from wizz import db
 from flask import json, render_template, redirect, request, current_app, url_for, abort, send_from_directory, flash, jsonify
 from werkzeug.utils import secure_filename
+
+try:
+    import pythoncom
+except Exception as e:
+    pass
 
 
 @main.route('/', methods=['GET', 'POST'])
