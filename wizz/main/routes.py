@@ -14,7 +14,6 @@ try:
 except Exception as e:
     pass
 
-
 @main.route('/', methods=['GET', 'POST'])
 def index():
     return render_template("index.html")
@@ -62,24 +61,26 @@ def getFile():
                 print("Abort 400")
                 abort(400)
             if file_ext != ".pdf" and file_ext in current_app.config["WORD_EXTENSIONS"]:
-                picture_file = save_picture(uploaded_file)
-                pythoncom.CoInitialize()
-                picture_path = os.path.join(
-                                current_app.root_path, 'static/images', picture_file)
-                convert(picture_path)
-                pdf_file_name = picture_file.split(".")[0]
-                pdf_file_with_ext = pdf_file_name + ".pdf"
-                print(pdf_file_with_ext)
-                document = Document(image_file=pdf_file_with_ext, name="Adegoke Bright")
-                db.session.add(document)
-                db.session.commit()
-                print("File uploaded successfully...............")
-                flash('Your file has been successfully uploaded!', 'success')
-                return redirect(url_for("main.create", image=pdf_file_with_ext))
+                try:
+                    picture_file = save_picture(uploaded_file)
+                    pythoncom.CoInitialize()
+                    picture_path = os.path.join(
+                                    current_app.root_path, 'static/images', picture_file)
+                    convert(picture_path)
+                    pdf_file_name = picture_file.split(".")[0]
+                    pdf_file_with_ext = pdf_file_name + ".pdf"
+                    print(pdf_file_with_ext)
+                    document = Document(image_file=pdf_file_with_ext, name="Adegoke Bright")
+                    db.session.add(document)
+                    db.session.commit()
+                    print("File uploaded successfully...............")
+                    flash('Your file has been successfully uploaded!', 'success')
+                    return redirect(url_for("main.create", image=pdf_file_with_ext))
+                except Exception as e:
+                    pass
 
             elif file_ext != ".pdf" and file_ext in current_app.config["PICTURE_EXTENSIONS"]:
                 picture_file = save_picture(uploaded_file)
-                pythoncom.CoInitialize()
                 picture_path = os.path.join(
                                 current_app.root_path, 'static/images', picture_file)
                 image1 = Image.open(picture_path)
