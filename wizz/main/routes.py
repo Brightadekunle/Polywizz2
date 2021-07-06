@@ -1,7 +1,5 @@
 import os
 import secrets
-import pythoncom
-from docx2pdf import convert
 import convertapi
 from PIL import Image
 from . import main
@@ -65,11 +63,6 @@ def getFile():
                 picture_file = save_picture(uploaded_file)
                 picture_path = os.path.join(
                                 current_app.root_path, 'static/images', picture_file)
-                # try:
-                #     pythoncom.CoInitialize()
-                # except Exception as e:
-                #     raise e
-                # convert(picture_path)
 
                 result = convertapi.convert('pdf', { 'File': picture_path })
 
