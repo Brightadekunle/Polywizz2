@@ -61,23 +61,24 @@ def getFile():
                 print("Abort 400")
                 abort(400)
             if file_ext != ".pdf" and file_ext in current_app.config["WORD_EXTENSIONS"]:
+                picture_file = save_picture(uploaded_file)
+                picture_path = os.path.join(
+                                current_app.root_path, 'static/images', picture_file)
                 try:
-                    picture_file = save_picture(uploaded_file)
                     pythoncom.CoInitialize()
-                    picture_path = os.path.join(
-                                    current_app.root_path, 'static/images', picture_file)
-                    convert(picture_path)
-                    pdf_file_name = picture_file.split(".")[0]
-                    pdf_file_with_ext = pdf_file_name + ".pdf"
-                    print(pdf_file_with_ext)
-                    document = Document(image_file=pdf_file_with_ext, name="Adegoke Bright")
-                    db.session.add(document)
-                    db.session.commit()
-                    print("File uploaded successfully...............")
-                    flash('Your file has been successfully uploaded!', 'success')
-                    return redirect(url_for("main.create", image=pdf_file_with_ext))
                 except Exception as e:
-                    pass
+                    raise e
+                convert(picture_path)
+                pdf_file_name = picture_file.split(".")[0]
+                pdf_file_with_ext = pdf_file_name + ".pdf"
+                print(pdf_file_with_ext)
+                document = Document(image_file=pdf_file_with_ext, name="Adegoke Bright")
+                db.session.add(document)
+                db.session.commit()
+                print("File uploaded successfully...............")
+                flash('Your file has been successfully uploaded!', 'success')
+                return redirect(url_for("main.create", image=pdf_file_with_ext))
+
 
             elif file_ext != ".pdf" and file_ext in current_app.config["PICTURE_EXTENSIONS"]:
                 picture_file = save_picture(uploaded_file)
@@ -152,5 +153,6 @@ def save_picture(form_picture):
     form_picture.save(picture_path)
 
     return picture_fn
+
 
 # href="mailto:brightaverix@gmail.com?subject=HI&body={{link}}"
