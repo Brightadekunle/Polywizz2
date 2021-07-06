@@ -123,7 +123,7 @@ def uploadForClient():
         filename = secure_filename(uploaded_file.filename)
         if filename != '':
             file_ext = os.path.splitext(filename)[1]
-            if file_ext not in current_app.config['UPLOAD_EXTENSIONS']:
+            if file_ext not in current_app.config['AGENT_UPLOAD_EXTENSIONS']:
                 print("Abort 400")
                 abort(400)
             picture_file = save_picture(uploaded_file)

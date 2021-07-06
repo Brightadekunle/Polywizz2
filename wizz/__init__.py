@@ -28,6 +28,7 @@ def create_app():
     app.config["CSRF_ENABLED"] = True
     app.config["SECRET_KEY"] = os.environ.get('SECRET_KEY')
     app.config["UPLOAD_EXTENSIONS"] = ['.jpg', '.jpeg', '.png', '.doc', '.docx', ".pdf", ".JPG"]
+    app.config["AGENT_UPLOAD_EXTENSIONS"] = [".pdf"]
     app.config["WORD_EXTENSIONS"] = ['.doc', '.docx']
     app.config["PICTURE_EXTENSIONS"] = ['.jpg', '.jpeg', '.png', ".JPG"]
     # app.config["SQLALCHEMY_DATABASE_URI"] = 'postgresql:///polywizz'
