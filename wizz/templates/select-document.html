@@ -181,10 +181,10 @@
                     <thead>
                       <tr>
                         <th>S/N</th>
-                        <th>Document's Name</th>
-                        <th>Date</th>
-                        <th>View</th>
-                        <th>Delete File</th>
+                        <th>Customer Name</th>
+                        <th>Email Address</th>
+                        <th>Phone Number</th>
+  
                         <th>Send to mail</th>
                         <th>Send to SMS/WhatsApp</th>
                       </tr>
@@ -192,106 +192,115 @@
                     <tbody>
                       <tr>
                         <td>1</td>
-                        <td>Document one</td>
-                        <td>26/05/2022</td>
+                        <td>Customer one</td>
+                        <td>customer1@gmail.com</td>
+                        <td>028873737784</td>
+  
                         <td>
-                          <a href=""><i class="fa fa-eye"></i></a>
+                          <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal"><i class="fa fa-envelope"></i></button>
                         </td>
+  
                         <td>
-                          <a href="http://"><i class="fa fa-trash"></i></a>
-                        </td>
-                        <td>
-                          <a href="mailto:"><i class="fa fa-envelope"></i></a>
-                        </td>
-
-                        <td>
-                          <a href="sms:"><i class="fa fa-phone"></i></a>
+                          <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModa"><i class="fa fa-phone"></i></button>
+                      
+                       
                         </td>
                       </tr>
                       <tr>
                         <td>2</td>
-                        <td>Document Two</td>
-                        <td>26/05/2022</td>
+                        <td>Customer one</td>
+                        <td>customer1@gmail.com</td>
+                        <td>028873737784</td>
+  
                         <td>
-                          <a href=""><i class="fa fa-eye"></i></a>
+                          <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal"><i class="fa fa-envelope"></i></button>
                         </td>
+  
                         <td>
-                          <a href="http://"><i class="fa fa-trash"></i></a>
-                        </td>
-                        <td>
-                          <a href="mailto:"><i class="fa fa-envelope"></i></a>
-                        </td>
-                        <td>
-                          <a href="sms:"><i class="fa fa-phone"></i></a>
+                          <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModa"><i class="fa fa-phone"></i></button>
+                      
+                          
                         </td>
                       </tr>
+  
                       <tr>
-                         <td>3</td>
-                        <td>Document Three</td>
-                        <td>26/05/2022</td>
+                        <td>3</td>
+                        <td>Customer one</td>
+                        <td>customer1@gmail.com</td>
+                        <td>028873737784</td>
+  
                         <td>
-                          <a href=""><i class="fa fa-eye"></i></a>
+                          <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal"><i class="fa fa-envelope"></i></button>
                         </td>
+  
                         <td>
-                          <a href="http://"><i class="fa fa-trash"></i></a>
-                        </td>
-                        <td>
-                          <a href="mailto:"><i class="fa fa-envelope"></i></a>
-                        </td>
-
-                        <td>
-                          <a href="sms:"><i class="fa fa-phone"></i></a>
+                          <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModa"><i class="fa fa-phone"></i></button>
+                      
+                         
                         </td>
                       </tr>
-                      <tr>
-                       <td>4</td>
-                        <td>Document Four</td>
-                        <td>26/05/2022</td>
-                        <td>
-                          <a href=""><i class="fa fa-eye"></i></a>
-                        </td>
-                        <td>
-                          <a href="http://"><i class="fa fa-trash"></i></a>
-                        </td>
-                        <td>
-                          <a href="mailto:"><i class="fa fa-envelope"></i></a>
-                        </td>
-                        <td>
-                          <a href="sms:"><i class="fa fa-phone"></i></a>
-                        </td>
-                      </tr>
-                      <tr>
-                         <td>5</td>
-                        <td>Document Five</td>
-                        <td>26/05/2022</td>
-                        <td>
-                          <a href=""><i class="fa fa-eye"></i></a>
-                        </td>
-                        <td>
-                          <a href="http://"><i class="fa fa-trash"></i></a>
-                        </td>
-                        <td>
-                          <a href="mailto:brightaverix@gmail.com?subject=HI&body={{link}}"><i class="fa fa-envelope"></i></a>
-                        </td>
-                        <td>
-                          <a href="sms:"><i class="fa fa-phone"></i></a>
-                        </td>
-                      </tr>
-
-                 
+  
                     </tbody>
                     <tfoot>
                       <tr>
                         <th>S/N</th>
-                        <th>Document's Name</th>
-                        <th>Date</th>
-                        <th>View</th>
-                        <th>Delete File</th>
+                        <th>Customer Name</th>
+                        <th>Email Address</th>
+                        <th>Phone Number</th>
+  
                         <th>Send to mail</th>
                         <th>Send to SMS/WhatsApp</th>
                       </tr>
                     </tfoot>
                   </table>
+  
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Send Link to Mail</h5>
+          <p class="modal-title mr-4" id="exampleModalLabel">customer@gmail.com</p>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+       <textarea name="" id="" cols="30" rows="5" class="form-control" placeholder="Paste Linkk Here"></textarea>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Send Link</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModa" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Send Link to SMS/Whatsapp</h5>
+          <p class="modal-title mr-4" id="exampleModalLabel">87873478466</p>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+      
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <a href="sms:+454544545&body=link" type="button" class="btn btn-primary">Send Link Via SMS</a>
+  
+        
+          <a href="https://api.whatsapp.com/send?phone=15551234567&text=link" type="button" class="btn btn-success">Send Link Via Whatsapp</a>
+  
+        </div>
+      </div>
+    </div>
+  </div>
                 </div>
                 <!-- /.card-body -->
               </div>

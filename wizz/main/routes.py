@@ -152,3 +152,5 @@ def save_picture(form_picture):
     form_picture.save(picture_path)
 
     return picture_fn
+
+# href="mailto:brightaverix@gmail.com?subject=HI&body={{link}}"

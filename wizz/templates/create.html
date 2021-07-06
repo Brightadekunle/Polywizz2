@@ -282,8 +282,11 @@
                   <div class="tool">
                     <button class="tool-button"><i class="fa fa-long-arrow-right" title="Add Arrow" onclick="enableAddArrow(event)"></i></button>
                   </div>
-                  <div class="tool">
+                  <!-- <div class="tool">
                     <button class="tool-button"><i class="fa fa-square-o" title="Add rectangle" onclick="enableRectangle(event)"></i></button>
+                  </div> -->
+                  <div class="tool">
+                    <button class="tool-button"><i class="" title="Insert Line" onclick="enableLine(event)">__</i></button>
                   </div>
                   <div class="tool">
                     <button class="tool-button"><i class="fa fa-picture-o" title="Add an Image" onclick="addImage(event)"></i></button>
@@ -458,6 +461,15 @@ $(function () {
         pdf.setFontSize(font_size);
     });
 });
+
+function enableLine(event) {
+    event.preventDefault();
+    changeActiveTool(event);
+    pdf.setColor('rgba(255, 255, 255,0.1)');
+    pdf.setBorderColor('#000');
+   
+    pdf.enableLine();
+}
 
 </script>
 
