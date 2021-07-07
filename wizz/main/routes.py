@@ -105,8 +105,6 @@ def getFile():
 
 @main.route('/save/<filename>', methods=['GET', 'POST'])
 def download(filename):
-    # information = request.data
-    # print("information -", information, type(information))
     document = Document.query.filter_by(image_file=filename).first()
     document.saved_image_file = document.image_file
     db.session.commit()
