@@ -38,7 +38,7 @@ def create(image):
 @main.route('/client_create/<image>', methods=['GET', 'POST'])
 def clientCreate(image):
     imagePdf = NewDocument.query.filter_by(name=image).first()
-    return render_template("create.html", imagePdf=imagePdf.image_file)
+    return render_template("create.html", imagePdf=imagePdf.name)
 
 
 @main.route('/', methods=['GET', 'POST'])

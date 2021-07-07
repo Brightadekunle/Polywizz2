@@ -361,6 +361,7 @@
 <script src="../static/js/script.js"></script>
 <script type="text/javascript">
     var documentName = "{{ imagePdf }}"
+    console.log(documentName)
 
     var pdf = new PDFAnnotate("pdf-container", `../static/images/${documentName}`, {
   onPageUpdated(page, oldData, newData) {
