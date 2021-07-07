@@ -135,10 +135,10 @@ def uploadForClient():
     
     return render_template("fill.html")
 
-@main.route('/upload_for_client', methods=['GET', 'POST'])
-def receiveDocument(document):
+# @main.route('/client_response', methods=['GET', 'POST'])
+# def clientResponse(document):
     
-    return ""
+#     return ""
 
 def save_picture(form_picture):
     random_hex = secrets.token_hex(8)
