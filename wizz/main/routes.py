@@ -17,7 +17,7 @@ def dashboard():
 @main.route('/select-document/<pdf>', methods=['GET', 'POST'])
 def selectDocument(pdf):
     document = NewDocument.query.filter_by(name=pdf).first()
-    link = "http://polywizz.com/client_create/" + document.name
+    link = "http://polywizz.herokuapp.com/client_create/" + document.name
     print(link)
     return render_template("select-document.html", link=link, pdf=document.name, document=document)
 
