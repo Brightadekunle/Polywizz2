@@ -12,11 +12,6 @@ from werkzeug.utils import secure_filename
 
 convertapi.api_secret = '01FK85WQktz8GYZz'
 
-
-@main.route('/', methods=['GET', 'POST'])
-def index():
-    return render_template("index.html")
-
 @main.route('/dashboard', methods=['GET', 'POST'])
 def dashboard():
     return render_template("Dashboard.html")
@@ -49,7 +44,7 @@ def clientCreate(image):
     return render_template("create.html", imagePdf=imagePdf.name)
 
 
-@main.route('/upload', methods=['GET', 'POST'])
+@main.route('/', methods=['GET', 'POST'])
 def getFile():
     if request.method == "POST":
         uploaded_file = request.files["file"]

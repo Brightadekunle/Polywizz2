@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <title>AdminLTE 3 | DataTables</title>
+    <title>Polywizz</title>
     <!-- Tell the browser to be responsive to screen width -->
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
@@ -154,12 +154,12 @@
           <div class="container-fluid">
             <div class="row mb-2">
               <div class="col-sm-6">
-                <h1>Select Document</h1>
+                <h1>Send to Customer</h1>
               </div>
               <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
                   <li class="breadcrumb-item"><a href="#">Home</a></li>
-                  <li class="breadcrumb-item active">Select Document</li>
+                  <li class="breadcrumb-item active">Send to Customer</li>
                 </ol>
               </div>
             </div>
@@ -266,11 +266,12 @@
           </button>
         </div>
         <div class="modal-body">
-       <textarea name="" id="" cols="30" rows="5" class="form-control" placeholder="Paste Linkk Here"></textarea>
+          <input type="text" class="form-control" value="{{link}}">
+       
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary">Send Link</button>
+          <a type="button" class="btn btn-primary" href="mailto:brightaverix@gmail.com?subject=HI&body={{link}}" class="btn btn-primary">Send Link</a>
         </div>
       </div>
     </div>
@@ -282,7 +283,7 @@
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title" id="exampleModalLabel">Send Link to SMS/Whatsapp</h5>
-          <p class="modal-title mr-4" id="exampleModalLabel">87873478466</p>
+          <p class="modal-title mr-4" id="exampleModalLabel">+2348102402838</p>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
@@ -292,10 +293,10 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          <a href="sms:+454544545&body=link" type="button" class="btn btn-primary">Send Link Via SMS</a>
+          <a href="sms:+454544545&body={{link}}" type="button" class="btn btn-primary">Send Link Via SMS</a>
   
         
-          <a href="https://api.whatsapp.com/send?phone=15551234567&text=link" type="button" class="btn btn-success">Send Link Via Whatsapp</a>
+          <a href="https://api.whatsapp.com/send?phone=+2348102402838&text={{link}}" type="button" class="btn btn-success">Send Link Via Whatsapp</a>
   
         </div>
       </div>
