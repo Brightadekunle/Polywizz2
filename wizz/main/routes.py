@@ -38,7 +38,7 @@ def create(image):
 @main.route('/client_create/<image>', methods=['GET', 'POST'])
 def clientCreate(image):
     imagePdf = NewDocument.query.filter_by(name=image).first()
-    return render_template("create.html", imagePdf=imagePdf.name)
+    return render_template("create.html", imagePdf=imagePdf.image_file)
 
 
 @main.route('/', methods=['GET', 'POST'])
@@ -135,7 +135,10 @@ def uploadForClient():
     
     return render_template("fill.html")
 
-   
+@main.route('/upload_for_client', methods=['GET', 'POST'])
+def receiveDocument(document):
+    
+    return ""
 
 def save_picture(form_picture):
     random_hex = secrets.token_hex(8)
