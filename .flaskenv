@@ -1,2 +1,2 @@
 FLASK_ENV=development
-FLASK_APP=wizz
+FLASK_APP=wizz.app:app

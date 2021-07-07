@@ -10,8 +10,6 @@ from flask import json, render_template, redirect, request, current_app, url_for
 from werkzeug.utils import secure_filename
 
 
-convertapi.api_secret = '01FK85WQktz8GYZz'
-
 @main.route('/dashboard', methods=['GET', 'POST'])
 def dashboard():
     return render_template("Dashboard.html")
@@ -19,7 +17,7 @@ def dashboard():
 @main.route('/select-document/<pdf>', methods=['GET', 'POST'])
 def selectDocument(pdf):
     document = NewDocument.query.filter_by(name=pdf).first()
-    link = "http://localhost:5000/clientCreate/" + document.name
+    link = "http://polywizz.com/client_create/" + document.name
     print(link)
     return render_template("select-document.html", link=link, pdf=document.name, document=document)
 
@@ -29,7 +27,6 @@ def processHistory():
 
 @main.route('/all-history', methods=['GET', 'POST'])
 def allHistory():
-    
     return render_template("all-history.html")
 
 
@@ -38,7 +35,7 @@ def create(image):
     imagePdf = Document.query.filter_by(image_file=image).first()
     return render_template("create.html", imagePdf=imagePdf.image_file)
 
-@main.route('/clientCreate/<image>', methods=['GET', 'POST'])
+@main.route('/client_create/<image>', methods=['GET', 'POST'])
 def clientCreate(image):
     imagePdf = NewDocument.query.filter_by(name=image).first()
     return render_template("create.html", imagePdf=imagePdf.name)
@@ -59,6 +56,7 @@ def getFile():
                 picture_path = os.path.join(
                                 current_app.root_path, 'static/images', picture_file)
 
+                convertapi.api_secret = '01FK85WQktz8GYZz'
                 result = convertapi.convert('pdf', { 'File': picture_path })
 
                 pdf_file_name = picture_file.split(".")[0]
@@ -116,7 +114,7 @@ def download(filename):
     return redirect(request.referrer)
 
 
-@main.route('/uploadForClient', methods=['GET', 'POST'])
+@main.route('/upload_for_client', methods=['GET', 'POST'])
 def uploadForClient():
     if request.method == "POST":
         uploaded_file = request.files["file"]
