@@ -22,4 +22,4 @@ class NewDocument(db.Model):
     __tablename__ = 'newdocuments'
     {'extend_existing': True}
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(64))
+    image_file = db.Column(db.String(300))

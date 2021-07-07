@@ -16,10 +16,11 @@ def dashboard():
 
 @main.route('/select-document/<pdf>', methods=['GET', 'POST'])
 def selectDocument(pdf):
-    document = NewDocument.query.filter_by(name=pdf).first()
-    link = "http://polywizz.herokuapp.com/client_create/" + document.name
+    document = NewDocument.query.filter_by(image_file=pdf).first()
+    link = "http://polywizz.herokuapp.com/client_create/" + document.image_file
+    # link = "http://localhost:5000/client_create/" + document.image_file
     print(link)
-    return render_template("select-document.html", link=link, pdf=document.name, document=document)
+    return render_template("select-document.html", link=link, pdf=document.image_file, document=document)
 
 @main.route('/process-history', methods=['GET', 'POST'])
 def processHistory():
@@ -29,7 +30,6 @@ def processHistory():
 def allHistory():
     return render_template("all-history.html")
 
-
 @main.route('/create/<image>', methods=['GET', 'POST'])
 def create(image):
     imagePdf = Document.query.filter_by(image_file=image).first()
@@ -37,8 +37,8 @@ def create(image):
 
 @main.route('/client_create/<image>', methods=['GET', 'POST'])
 def clientCreate(image):
-    imagePdf = NewDocument.query.filter_by(name=image).first()
-    return render_template("create.html", imagePdf=imagePdf.name)
+    imagePdf = NewDocument.query.filter_by(image_file=image).first()
+    return render_template("create.html", imagePdf=imagePdf.image_file)
 
 
 @main.route('/', methods=['GET', 'POST'])
@@ -126,10 +126,11 @@ def uploadForClient():
                 print("Abort 400")
                 abort(400)
             picture_file = save_picture(uploaded_file)
-            document = NewDocument(name=picture_file)
+            document = NewDocument(image_file=picture_file)
             db.session.add(document)
             db.session.commit()
             flash('Your file has been successfully uploaded!', 'success')
+            # return redirect(url_for("main.clientCreate", image=picture_file))
             return redirect(url_for("main.selectDocument", pdf=picture_file))
     
     
