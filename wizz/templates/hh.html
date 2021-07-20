@@ -1,19 +1,3 @@
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 <!DOCTYPE html>
 <html>
   <head>
@@ -48,12 +32,14 @@
 
   
 
-    <style>
-    .toolbar{
-display: flex;
-flex-direction: column;
-    }
+  
 
+    <style>
+     .toolbar{
+       display:flex;
+       flex-direction: column;
+     }
+     
     
     </style>
 
@@ -132,13 +118,34 @@ flex-direction: column;
               <p>Upload Created Doc(Agent)</p>
             </a>
           </li>
-          <!-- <li class="nav-item pt-3">
-            <a href="create.html" class="nav-link">
-              <i class="fa fa-file nav-icon"></i>
-              <p>Create New PDF Form</p>
-            </a>
-          </li> -->
 
+          <li class="nav-item pt-3">
+            <a href="{{ url_for('main.processHistory') }}" class="nav-link">
+              <i class="fa fa-tasks nav-icon"></i>
+              <p>In Process</p>
+            </a>
+          </li>
+
+          
+
+          <li class="nav-item pt-3">
+            <a href="view-status.html" class="nav-link">
+              <i class="fa fa-street-view nav-icon"></i>
+              <p>View Status</p>
+            </a>
+          </li>
+
+          <li class="nav-item pt-3">
+            <a href="select-document.html" class="nav-link">
+              <i class="fa fa-check nav-icon"></i>
+              <p>Select Document</p>
+            </a>
+          </li>
+
+          
+        
+
+        
 
           <li class="nav-item has-treeview pt-3">
             <a href="#" class="nav-link">
@@ -150,13 +157,13 @@ flex-direction: column;
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="{{ url_for('main.processHistory') }}" class="nav-link">
+                <a href="process-history.html" class="nav-link">
                   <i class="fa fa-tasks nav-icon"></i>
                   <p>In Process</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="{{ url_for('main.allHistory') }}" class="nav-link">
+                <a href="all-history.html" class="nav-link">
                   <i class="fa fa-history nav-icon"></i>
                   <p>All History</p>
                 </a>
@@ -194,7 +201,7 @@ flex-direction: column;
               </div>
 
               <div class="col-md-2 tool-section">
-               <div class="toolbar">
+                <div class="toolbar">
                
                 
                   <div class="tool">
@@ -234,7 +241,7 @@ flex-direction: column;
                   </div>
                 </div>
               </div>
-              
+            <!-- new   -->
               <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog" role="document">
                   <div class="modal-content">
@@ -257,9 +264,8 @@ flex-direction: column;
                 </div>
               </div>
 
+<!-- new -->
 
-              
-              
               <div class="modal fade" id="dataModal" tabindex="-1" role="dialog" aria-labelledby="dataModalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-lg" role="document">
                   <div class="modal-content">
@@ -290,13 +296,13 @@ flex-direction: column;
     <!-- ./wrapper -->
 
     <!-- jQuery -->
-    <script src="../static/plugins/jquery/jquery.min.js"></script>
+    <script src="plugins/jquery/jquery.min.js"></script>
     <!-- Bootstrap 4 -->
-    <script src="../static/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
     <!-- AdminLTE App -->
-    <script src="../static/js/adminlte.min.js"></script>
+    <script src="Assets/js/adminlte.min.js"></script>
     <!-- AdminLTE for demo purposes -->
-    <script src="../static/js/demo.js"></script>
+    <script src="Assets/js/demo.js"></script>
   
 
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
@@ -310,131 +316,132 @@ flex-direction: column;
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.2.0/jspdf.umd.min.js"></script>
 <script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.js"></script>
-<script src="../static/js/arrow.fabric.js"></script>
-<script src="../static/js/pdfannotate.js"></script>
-<script src="../static/js/script.js"></script>
+<script src="Assets/js/arrow.fabric.js"></script>
+<script src="Assets/js/pdfannotate.js"></script>
+<script src="Assets/js/script.js"></script>
+
+
 <script type="text/javascript">
-    var documentName = "{{ imagePdf }}"
-    console.log(documentName)
+  var documentName = "{{ imagePdf }}"
+  console.log(documentName)
 
-    const pdf_name=document.getElementById('save_as');
-  var pdf = new PDFAnnotate("pdf-container", `../static/images/${documentName}`, {
-  onPageUpdated(page, oldData, newData) {
-    console.log(page, oldData, newData);
-  },
-  ready() {
-    console.log("Plugin initialized successfully");
+  const pdf_name=document.getElementById('save_as');
+var pdf = new PDFAnnotate("pdf-container", `../static/images/${documentName}`, {
+onPageUpdated(page, oldData, newData) {
+  console.log(page, oldData, newData);
+},
+ready() {
+  console.log("Plugin initialized successfully");
 
-  },
-  scale: 1.5,
-  pageImageCompression: "SLOW", // FAST, MEDIUM, SLOW(Helps to control the new PDF file size)
+},
+scale: 1.5,
+pageImageCompression: "SLOW", // FAST, MEDIUM, SLOW(Helps to control the new PDF file size)
 });
 
 function changeActiveTool(event) {
-    var element = $(event.target).hasClass("tool-button")
-      ? $(event.target)
-      : $(event.target).parents(".tool-button").first();
-    $(".tool-button.active").removeClass("active");
-    $(element).addClass("active");
+  var element = $(event.target).hasClass("tool-button")
+    ? $(event.target)
+    : $(event.target).parents(".tool-button").first();
+  $(".tool-button.active").removeClass("active");
+  $(element).addClass("active");
 }
 
 function enableSelector(event) {
-    event.preventDefault();
-    changeActiveTool(event);
-    pdf.enableSelector();
+  event.preventDefault();
+  changeActiveTool(event);
+  pdf.enableSelector();
 }
 
 function enablePencil(event) {
-    event.preventDefault();
-    changeActiveTool(event);
-    pdf.enablePencil();
+  event.preventDefault();
+  changeActiveTool(event);
+  pdf.enablePencil();
 }
 
 function enableAddText(event) {
-    event.preventDefault();
-    changeActiveTool(event);
-    pdf.setColor('rgb(0, 0, 0)');
-    pdf.enableAddText();
+  event.preventDefault();
+  changeActiveTool(event);
+  pdf.setColor('rgb(0, 0, 0)');
+  pdf.enableAddText();
 }
 
 
 
 function addImage(event) {
-    event.preventDefault();
-    pdf.addImageToCanvas()
+  event.preventDefault();
+  pdf.addImageToCanvas()
 }
 function addTextCanvas(event) {
-    event.preventDefault();
-    pdf.addTextToCanvas()
+  event.preventDefault();
+  pdf.addTextToCanvas()
 }
 
 
 
 function enableRectangle(event) {
-    event.preventDefault();
-    changeActiveTool(event);
-    pdf.setColor('rgba(255, 255, 255,0.1)');
-    pdf.setBorderColor('#000');
-   
-    pdf.enableRectangle();
+  event.preventDefault();
+  changeActiveTool(event);
+  pdf.setColor('rgba(255, 255, 255,0.1)');
+  pdf.setBorderColor('#000');
+ 
+  pdf.enableRectangle();
 }
 // new
 function enableLine(event) {
-    event.preventDefault();
-    changeActiveTool(event);
-    pdf.setColor('rgb(255, 255, 255)');
-    pdf.setBorderColor('#000');
-   
-    pdf.enableLine();
+  event.preventDefault();
+  changeActiveTool(event);
+  pdf.setColor('rgb(255, 255, 255)');
+  pdf.setBorderColor('#000');
+ 
+  pdf.enableLine();
 }
 // new
 
 function deleteSelectedObject(event) {
-  event.preventDefault();
-  pdf.deleteSelectedObject();
+event.preventDefault();
+pdf.deleteSelectedObject();
 }
 
 function savePDF() {
-    // pdf.savePdf();
-    pdf.savePdf(pdf_name.value); // save with given file name
-    console.log(pdf)
-    
-    }
+  // pdf.savePdf();
+  pdf.savePdf(pdf_name.value); // save with given file name
+  console.log(pdf)
+  
+  }
 
 function clearPage() {
-    pdf.clearActivePage();
+  pdf.clearActivePage();
 }
 
 function showPdfData() {
-    var string = pdf.serializePdf();
-    $('#dataModal .modal-body pre').first().text(string);
-    PR.prettyPrint();
-    $('#dataModal').modal('show');
+  var string = pdf.serializePdf();
+  $('#dataModal .modal-body pre').first().text(string);
+  PR.prettyPrint();
+  $('#dataModal').modal('show');
 }
 
 $(function () {
-    $('.color-tool').click(function () {
-        $('.color-tool.active').removeClass('active');
-        $(this).addClass('active');
-        color = $(this).get(0).style.backgroundColor;
-        pdf.setColor(color);
-    });
+  $('.color-tool').click(function () {
+      $('.color-tool.active').removeClass('active');
+      $(this).addClass('active');
+      color = $(this).get(0).style.backgroundColor;
+      pdf.setColor(color);
+  });
 
-    $('#brush-size').change(function () {
-        var width = $(this).val();
-        pdf.setBrushSize(width);
-    });
+  $('#brush-size').change(function () {
+      var width = $(this).val();
+      pdf.setBrushSize(width);
+  });
 
-    $('#font-size').change(function () {
-        var font_size = $(this).val();
-        pdf.setFontSize(font_size);
-    });
+  $('#font-size').change(function () {
+      var font_size = $(this).val();
+      pdf.setFontSize(font_size);
+  });
 });
 
 </script>
 
 <script type="text/javascript">
-
 
   var _gaq = _gaq || [];
   _gaq.push(['_setAccount', 'UA-36251023-1']);
